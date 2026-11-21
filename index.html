@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Todo App</title>
+</head>
+<body>
+
+    <div class="container">
+        <h1>My Todo App 📝</h1>
+        <p>Manage your daily tasks</p>
+
+        <div class="input-area">
+            <input type="text" id="taskInput" placeholder="Enter your task...">
+            <button id="addBtn">Add Task</button>
+        </div>
+
+        <ul id="taskList"></ul>
+    </div>
+
+    <style>
+        
+
+
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Main Background */
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Main Container */
+.container {
+    background: #ffffff;
+    width: 100%;
+    max-width: 480px;
+    padding: 35px;
+    border-radius: 24px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+/* Heading */
+h1 {
+    color: #25234a;
+    font-size: 30px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+p {
+    color: #888;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 15px;
+}
+
+/* Input Area */
+.input-area {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+input {
+    flex: 1;
+    min-width: 0;
+    padding: 14px;
+    border: 2px solid #eee;
+    border-radius: 12px;
+    outline: none;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+input:focus {
+    border-color: #764ba2;
+    box-shadow: 0 0 0 3px rgba(118, 75, 162, 0.1);
+}
+
+/* Add Button */
+button {
+    border: none;
+    padding: 12px 17px;
+    background: #764ba2;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #5b3585;
+    transform: translateY(-2px);
+}
+
+/* Task List */
+ul {
+    list-style: none;
+}
+
+/* Individual Task */
+li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #f8f7fc;
+    padding: 13px;
+    margin-bottom: 12px;
+    border-radius: 12px;
+    border: 1px solid #eeeaf5;
+    color: #333;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+li:hover {
+    background: #f0edfa;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+/* Task Text */
+li span {
+    flex: 1;
+    overflow-wrap: anywhere;
+}
+
+/* Edit Button */
+li button:first-of-type {
+    background: #2563eb;
+    padding: 9px 12px;
+}
+
+li button:first-of-type:hover {
+    background: #1d4ed8;
+}
+
+/* Delete Button */
+li button:last-of-type {
+    background: #ef4444;
+    padding: 9px 12px;
+}
+
+li button:last-of-type:hover {
+    background: #dc2626;
+}
+
+/* Mobile Responsive */
+@media (max-width: 480px) {
+    .container {
+        padding: 22px;
+    }
+
+    h1 {
+        font-size: 25px;
+    }
+
+    .input-area {
+        flex-direction: column;
+    }
+
+    .input-area button {
+        width: 100%;
+    }
+}
+
+
+
+    </style>
+
+    <script>
+        
+
+const taskInput = document.getElementById("taskInput");
+const addBtn = document.getElementById("addBtn");
+const taskList = document.getElementById("taskList");
+
+addBtn.addEventListener("click", function() {
+
+    const taskText = taskInput.value.trim();
+
+    if (taskText === "") {
+        alert("Please enter a task!");
+        return;
+    }
+
+    const li = document.createElement("li");
+
+    // Task text
+    const span = document.createElement("span");
+    span.textContent = taskText;
+
+    // Edit button
+    const editBtn = document.createElement("button");
+    editBtn.textContent = "Edit";
+
+    editBtn.addEventListener("click", function() {
+        const newTask = prompt("Edit your task:", span.textContent);
+
+        if (newTask !== null && newTask.trim() !== "") {
+            span.textContent = newTask.trim();
+        }
+    });
+
+    // Delete button
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "Delete";
+
+    deleteBtn.addEventListener("click", function() {
+        li.remove();
+    });
+
+    // Add everything to list
+    li.appendChild(span);
+    li.appendChild(editBtn);
+    li.appendChild(deleteBtn);
+
+    taskList.appendChild(li);
+
+    taskInput.value = "";
+
+});
+
+
+
+
+    </script>
+
+    
+</body>
+</html>
